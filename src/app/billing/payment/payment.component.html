@@ -1,0 +1,162 @@
+<div>
+  <button (click)="chooseUser('first')">First time User</button>
+  <button (click)="chooseUser('old')">Old User</button>
+
+  <div *ngIf="newCustomer">
+    <h3>Customer detail - new customer </h3>
+    <form [formGroup]="SignupForm" (ngSubmit)="onSignUp('newCustomerSignup')">
+      <div formGroupName="userData">
+        <div class="form-group">
+          <label for="username">UserName</label>
+          <input type="text" class="form-control" id="username" formControlName="username">
+          <span class="help-block"
+            *ngIf="!SignupForm.get('userData.username').valid&&SignupForm.get('userData.username').touched">
+            <span *ngIf="SignupForm.get('userData.username').errors['nameIsForbidden']">name is invalid</span>
+            <span *ngIf="SignupForm.get('userData.username').errors['required']">field is required</span>
+          </span>
+        </div>
+
+        <!---Editing here for address and phone -->
+
+        <div class="form-group">
+          <label for="email">Phone</label>
+          <input type="email" class="form-control" id="email" formControlName="phone">
+
+          <span class="help-block"
+            *ngIf="!SignupForm.get('userData.email').valid && SignupForm.get('userData.email').touched">
+            please enter a valid phone
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="text">Address</label>
+          <input type="text" class="form-control" id="address" formControlName="address">
+
+          <span class="help-block"
+            *ngIf="!SignupForm.get('userData.email').valid && SignupForm.get('userData.email').touched">
+            please enter a valid address id
+          </span>
+        </div>
+
+
+        <!-- Ending the address and phone -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" formControlName="email">
+
+          <span class="help-block"
+            *ngIf="!SignupForm.get('userData.email').valid && SignupForm.get('userData.email').touched">
+            please enter a valid email id
+          </span>
+        </div>
+      </div>
+
+
+      <!-- <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" [value]="gender" formControlName="gender">{{gender}}
+          </label>
+        </div> -->
+
+
+
+      <span class="help-block" *ngIf="!SignupForm.valid && SignupForm.touched">
+        please enter valid data
+      </span>
+
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+  </div>
+  <div *ngIf="oldCustomer">
+    <h3>Old Customer</h3>
+
+    <div *ngFor="let customer of stripeCustomer.data">
+      <h3>{{customer.id}}</h3>
+      <h3>{{customer.email}}</h3>
+      <h3>{{customer.description}}</h3>
+      <h3>{{customer.invoice_prefix}}</h3>
+      <!-- <h5>{{shipping.address.country}}</h5>
+      <h5>{{shipping.address.line1}}</h5>
+      <h5>{{shipping.address.line2}}</h5>
+      <h5>{{shipping.name}}</h5>
+      <h5>{{shipping.phone}}</h5> -->
+
+
+      <div>
+        <button (click)="customerSelected(customer.id, customer.email)">Click</button>
+      </div>
+      <!-- <div *ngIf="invoiceTag">
+        <div *ngFor="let invoice of selectedCustomerInvoice.data">
+          <a href="invoice.hosted_invoice_url"> Invoice </a>
+          <br>
+          <a href="invoice.invoice_pdf"> download invoice</a>
+        </div>
+      </div> -->
+    </div>
+
+  </div>
+
+  <!-- Product-->
+
+  <div>
+    <h3>Product detail </h3>
+
+
+
+
+
+    <div *ngFor="let product of stripeProduct.data">
+      <h3>{{product.id}}</h3>
+      <h3>{{product.name}}</h3>
+      <div>
+        <button type="button" (click)="productSelected(product.id, product.name)">{{product.name}}</button>
+
+      </div>
+
+    </div>
+    <!--
+      <div *ngFor="let plan of selectedPlans.data">
+
+        <h1>{{selectedPlans.data.id}}</h1>
+        <h1>{{selectedPlans.data.interval}}</h1>
+        <h1>{{selectedPlans.data.currency}}</h1>
+        <h1>{{selectedPlans.data.nickname}}</h1>
+      </div> -->
+
+  </div>
+
+  <div *ngIf="planTag">
+    <h1>Plans Details</h1>
+    <button type="button" (click)="makePayment()">Manual</button>
+    <div *ngFor="let plan of planByProductArrays">
+
+      <h4>{{plan.id}}</h4>
+
+      <h4>{{plan.interval}}</h4>
+      <h4>{{plan.nickname}}</h4>
+      <h4>{{plan.currency}}</h4>
+      <button type="button"
+        (click)="planSelectedByUser(plan.id,plan.interval, plan.nickname,plan.currency)">{{plan.nickname+" "+plan.currency}}</button>
+      <!-- <button type="button"
+        (click)="manual(plan.id,plan.interval, plan.nickname,plan.currency,plan.amount,'manual')">Manual</button> -->
+
+    </div>
+
+  </div>
+
+
+
+
+  <div>
+    <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
+      <div class="form-row">
+        <label for="card-info">Card Info</label>
+        <div id="card-info" #cardInfo></div>
+
+        <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
+      </div>
+
+      <button type="submit">Pay $777</button>
+    </form>
+
+  </div>

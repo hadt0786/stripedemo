@@ -1,0 +1,9 @@
+step 1 - create a customer id- create a user in stripe (first time user )
+        - get the customer id
+Step 2 - Billing
+      - Billing lifecycle
+      - Invoices
+      - Subscription create a Subscription
+      - Products - create a product - membership plan
+
+Step 3 - Orders - Product

@@ -1,0 +1,50 @@
+{
+  "name": "social-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app/server.js",
+    "dev": "nodemon --inspect app/server.js",
+    "test": "jest --all",
+    "test-watch": "jest --watchAll",
+    "lint": "eslint .; exit 0"
+  },
+  "keywords": [],
+  "author": "Akash",
+  "contributors": [
+    {
+      "name": "akash",
+      "email": "akash@zibtek.in"
+    }
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.20",
+    "ng-gapi": "0.0.73",
+    "response-time": "^2.3.2",
+    "stripe": "^6.28.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "jest": "^24.1.0",
+    "nodemon": "^1.18.10"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "jest": {
+    "transform": {},
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html"
+    ]
+  }
+}

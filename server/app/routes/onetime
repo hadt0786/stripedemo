@@ -1,0 +1,63 @@
+const express = require('express');
+
+var User = require('../models/user');
+var Product = require('../models/product');
+var Customer = require('./../models/customer');
+
+
+const router = express.Router();
+var stripe = require("stripe")("sk_test_pxM1ADUZGQHtSc4lW34SH2CV00U1NA1k5v");
+
+router.get('/data', (req, res) => {
+  res.send('Content yet to be added to database');
+});
+
+
+router.post('/user', (req, res) => {
+  console.log(" user hit");
+});
+
+
+// save the customer
+
+
+router.post("/charge", (req, res) => {
+  console.log(" charge ");
+  let amount = 500;
+  let customer = {
+    id: 'cus_123456789',
+  }
+
+  let token = "tok_1ELnQmGnl0mXzhZKvriVHS5Z";
+
+  stripe.customers.create({
+    email: req.body.stripeEmail || 'akash@zibtek.in',
+    source: 'tok_visa',
+
+
+  })
+    .then(customer =>
+
+
+      // create a source --> card
+
+
+
+      stripe.charges.create({
+        amount,
+        description: "Sample Charge",
+        currency: "usd",
+        customer: customer.id,
+        // active: true,
+        // interval: 'monthly'
+      })
+    )
+    .then(charge => res.status(200).send({
+      'message': charge
+    }));
+});
+
+
+
+
+module.exports = router;
